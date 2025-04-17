@@ -2,7 +2,7 @@
 {
     public class Room
     {
-        Furniture[,] Space { get; set; }
+        public Furniture[,] Space { get; set; }
 
         public Room(int width, int height)
         {
