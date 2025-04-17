@@ -1,6 +1,27 @@
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+builder.Services.AddControllers();
 
-app.MapGet("/", () => "Hello World!");
+var app = builder.Build();
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+
+
+
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}");
+
+app.UseCors(x => x
+.AllowCredentials()
+.AllowAnyHeader()
+.AllowAnyHeader()
+.WithOrigins("http://localhost:5500")
+);
 
 app.Run(); 
