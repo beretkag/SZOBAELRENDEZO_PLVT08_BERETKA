@@ -2,7 +2,8 @@
 {
     public class InputDto
     {
-        public Room Room { get; set; }
+        public int roomWidth { get; set; }
+        public int roomHeight { get; set; }
         public IEnumerable<Furniture> Furnitures { get; set; }
     }
 }
