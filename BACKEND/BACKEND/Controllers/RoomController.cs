@@ -4,19 +4,21 @@ using BACKEND.Models;
 namespace BACKEND.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/room")]
     public class RoomController : ControllerBase
     {
-        [HttpPost]
-        public ActionResult<Room> Furnishing([FromBody] InputDto input)
+        [HttpPost("furnishing")]
+        public Room Furnishing([FromBody] InputDto input)
         {
-            Room room = input.Room;
+            Room room = new Room(input.roomWidth, input.roomHeight);
 
 
 
 
 
-            return Ok(room);
+            return room;
         }
     }
+
+    
 }
