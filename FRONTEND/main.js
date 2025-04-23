@@ -1,6 +1,17 @@
 const url = "http://localhost:5048/api/room/furnishing";
 let furnitures = [];
 
+function GetDataFromLocalStorage(){
+  furnitures = JSON.parse(localStorage.getItem('furnitures')) ?? [];
+  if (furnitures.length != 0) {
+    updateFurnitureList()
+  }
+  matrix = JSON.parse(localStorage.getItem('matrix')) ?? null;
+  if (matrix) {
+    DrawRoom (matrix);
+  }
+}
+
 function addFurniture() {
   let name = document.getElementById("furnitureName").value;
   let width = parseInt(document.getElementById("furnitureWidth").value);
