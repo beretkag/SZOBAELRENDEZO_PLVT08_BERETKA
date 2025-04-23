@@ -11,8 +11,7 @@ namespace BACKEND.Controllers
         public ActionResult<Room> Furnishing([FromBody] InputDto input)
         {
             Room room = new Room(input.roomWidth, input.roomHeight);
-
-            if (TryPlaceAllFurnitures(room, input.Furnitures.ToList()))
+            if (TryPlaceAllFurnitures(room, input.furnitureGap, input.Furnitures.ToList()))
             {
                 return Ok(room);
             }
@@ -24,12 +23,12 @@ namespace BACKEND.Controllers
             
         }
 
-        public static bool TryPlaceAllFurnitures(Room room, List<Furniture> furnitures, int index = 0)
+        public static bool TryPlaceAllFurnitures(Room room,int gap, List<Furniture> furnitures, int index = 0)
         {
             if (index == furnitures.Count) return true;
 
             Furniture furniture = furnitures[index];
-            List<Furniture> variations = new List<Furniture> { furniture, furniture.CloneRotated() };
+            List<Furniture> variations = furniture.Width != furniture.Height ? new List<Furniture> { furniture, furniture.CloneRotated() } : new List<Furniture>() { furniture };
 
             foreach (Furniture variant in variations)
             {
@@ -37,10 +36,10 @@ namespace BACKEND.Controllers
                 {
                     for (int col = 0; col <= room.Space[0].Length - variant.Width; col++)
                     {
-                        if (room.CanPlace(variant, row, col))
+                        if (room.CanPlace(variant, row, col, gap))
                         {
                             room.Place(variant, row, col);
-                            if (TryPlaceAllFurnitures(room, furnitures, index + 1))
+                            if (TryPlaceAllFurnitures(room, gap, furnitures, index + 1))
                             {
                                 return true;
                             }

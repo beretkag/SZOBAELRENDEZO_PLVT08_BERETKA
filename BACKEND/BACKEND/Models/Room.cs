@@ -20,13 +20,13 @@
             return row >= 0 && row < this.Height && col >= 0 && col < this.Width;
         }
 
-        public bool CanPlace(Furniture furniture, int row, int col)
+        public bool CanPlace(Furniture furniture, int row, int col, int gap)
         {
             if (!IsInside(row + furniture.Height - 1, col + furniture.Width - 1)) return false;
 
-            for (int i = -1; i <= furniture.Height; i++)
+            for (int i = 0-gap; i < furniture.Height + gap; i++)
             {
-                for (int j = -1; j <= furniture.Width; j++)
+                for (int j = 0-gap; j < furniture.Width + gap; j++)
                 {
                     int r = row + i;
                     int c = col + j;
