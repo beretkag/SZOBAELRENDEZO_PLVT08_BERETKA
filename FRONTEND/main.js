@@ -1,3 +1,4 @@
+const url = "http://localhost:5048/api/room/furnishing";
 let furnitures = [];
 
 function addFurniture() {
@@ -30,4 +31,31 @@ function updateFurnitureList() {
     li.appendChild(item)
     list.appendChild(li);
   });
+}
+
+
+
+async function FurnishRoom() {  
+  let data ={
+    roomWidth: parseInt(document.getElementById("roomWidth").value),
+    roomHeight: parseInt(document.getElementById("roomHeight").value),
+    furnitures: furnitures
+  }
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (response.status == 400) {
+    alert('Hibás bemenet!')
+  }
+  else if (response.status == 200){
+      const res = await response.json();
+      const matrix = res.space;
+      DrawRoom(matrix)
+  }
 }
