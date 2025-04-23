@@ -1,20 +1,12 @@
-const url = "http://localhost:5048/api/room/furnishing";
+let furnitures = [];
 
-const dummy_payload = {
-  roomWidth: 10,
-  roomHeight: 10,
-  furnitures: [
-    { Name: "Ágy", Width: 3, Height: 2 },
-    { Name: "Asztal", Width: 5, Height: 6 }
-  ]
-};
+function addFurniture() {
+  let name = document.getElementById("furnitureName").value;
+  let width = parseInt(document.getElementById("furnitureWidth").value);
+  let height = parseInt(document.getElementById("furnitureHeight").value);
 
-fetch(url, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(dummy_payload)
-})
-.then(res => res.json())
-.then(room => console.log(room.space))
+  if (name && !isNaN(width) && !isNaN(height)){
+    furnitures.push({ name, width, height });
+    updateFurnitureList();
+  }
+}
