@@ -51,8 +51,9 @@ async function FurnishRoom() {
   let data ={
     roomWidth: parseInt(document.getElementById("roomWidth").value),
     roomHeight: parseInt(document.getElementById("roomHeight").value),
+    furnitureGap: parseInt(document.getElementById("furnitureGap").value),
     furnitures: furnitures
-  }
+  }  
 
   const response = await fetch(url, {
     method: "POST",
@@ -81,7 +82,6 @@ function DrawRoom(matrix) {
   table.style.borderCollapse = "collapse";
 
   let size = 50/parseInt(document.getElementById("roomWidth").value); 
-  console.log(size);
    
   
   for (let row = 0; row < matrix.length; row++) {
@@ -133,9 +133,7 @@ function GetFurnitureSize(matrix, row, col){
   }
   while (col + size.width < matrix[row].length && matrix[row][col + size.width].name == name && !matrix[row][col + size.width].drawn) {
     size.width += 1;
-  }
-  console.log(size);
-  
+  }  
   return size;
 }
 
