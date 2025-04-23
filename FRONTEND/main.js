@@ -16,6 +16,7 @@ function updateFurnitureList() {
   let list = document.getElementById("furnitureList");
   list.style.listStyleType = "none"
   list.innerHTML = "";
+  localStorage.setItem('furnitures', JSON.stringify(furnitures))
   furnitures.forEach((f, i) => {
     let li = document.createElement("li");
     let item = document.createElement("span")
@@ -56,6 +57,7 @@ async function FurnishRoom() {
   else if (response.status == 200){
       const res = await response.json();
       const matrix = res.space;
+      localStorage.setItem('matrix', JSON.stringify(matrix))
       DrawRoom(matrix)
   }
 }
